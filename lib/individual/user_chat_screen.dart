@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cura/shared/widgets/gradient_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -55,7 +56,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     bool isKeyboardActive = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
-      
       resizeToAvoidBottomInset: false,
       body: ScreenUtilInit(
         designSize: const Size(428, 926),
@@ -74,8 +74,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10.r),
-                          topRight: Radius.circular(10.r),
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
                         ),
                       ),
                       child: ListView.builder(
@@ -119,7 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       height: 70.h,
                       width: 420.w,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF92B7C0),
+                        color: const Color.fromARGB(255, 157, 220, 200),
                         borderRadius: BorderRadius.circular(40.r),
                       ),
                       child: Row(
@@ -164,34 +164,41 @@ class _ChatScreenState extends State<ChatScreen> {
                             iconSize: 28.h,
                             icon: const Icon(Icons.mic),
                           ),
-                          IconButton(
-                            onPressed: () async {
-                              final time = DateTime.now();
-                              int hour = time.hour;
-                              String meridian = hour < 11 ? "am" : "pm";
-                              hour = hour % 11;
-                              hour = hour == 0 ? 12 : hour - 1;
-                              String timeInHours =
-                                  hour < 10 ? "0$hour" : hour.toString();
-                              int minutes = time.minute;
-                              String minute = minutes < 10
-                                  ? "0$minutes"
-                                  : minutes.toString();
-                              String month = months[time.month - 1];
-                              await FirebaseFirestore.instance
-                                  .collection('messages')
-                                  .add({
-                                'msg': messageController.text.trim(),
-                                'isMe': true,
-                                'time': "$timeInHours:$minute $meridian",
-                                'date': "${time.day} $month ${time.year}"
-                              });
-                              messageController.clear();
-                              loadMessages();
-                              FocusScope.of(context).unfocus();
-                            },
-                            iconSize: 28.h,
-                            icon: const Icon(Icons.send),
+                          Container(
+                            margin: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0,),
+                              color: const Color.fromARGB(255, 106, 192, 164)
+                            ),
+                            child: IconButton(
+                              onPressed: () async {
+                                final time = DateTime.now();
+                                int hour = time.hour;
+                                String meridian = hour < 11 ? "am" : "pm";
+                                hour = hour % 11;
+                                hour = hour == 0 ? 12 : hour - 1;
+                                String timeInHours =
+                                    hour < 10 ? "0$hour" : hour.toString();
+                                int minutes = time.minute;
+                                String minute = minutes < 10
+                                    ? "0$minutes"
+                                    : minutes.toString();
+                                String month = months[time.month - 1];
+                                await FirebaseFirestore.instance
+                                    .collection('messages')
+                                    .add({
+                                  'msg': messageController.text.trim(),
+                                  'isMe': true,
+                                  'time': "$timeInHours:$minute $meridian",
+                                  'date': "${time.day} $month ${time.year}"
+                                });
+                                messageController.clear();
+                                loadMessages();
+                                FocusScope.of(context).unfocus();
+                              },
+                              iconSize: 28.h,
+                              icon: const Icon(Icons.send),
+                            ),
                           ),
                         ],
                       ),
@@ -306,19 +313,23 @@ class MessageWidget extends StatelessWidget {
           ),
         Container(
           // width: 260.w,
-          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+          padding: EdgeInsets.symmetric(
+            vertical: 10.h,
+            horizontal: 15.w,
+          ),
           decoration: BoxDecoration(
             color: isMe ? const Color(0xFFC2E8DC) : const Color(0xFFE8E8E8),
-            borderRadius: isMe ? const BorderRadius.only(
-              topLeft: Radius.circular(25.0),
-              bottomLeft: Radius.circular(25.0),
-              bottomRight: Radius.circular(25.0),
-            )
-            : const BorderRadius.only(
-              topRight: Radius.circular(25.0),
-              bottomLeft: Radius.circular(25.0),
-              bottomRight: Radius.circular(25.0),
-            ),
+            borderRadius: isMe
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(18.0),
+                    bottomLeft: Radius.circular(18.0),
+                    bottomRight: Radius.circular(18.0),
+                  )
+                : const BorderRadius.only(
+                    topRight: Radius.circular(18.0),
+                    bottomLeft: Radius.circular(18.0),
+                    bottomRight: Radius.circular(18.0),
+                  ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -334,7 +345,7 @@ class MessageWidget extends StatelessWidget {
               Text(
                 time,
                 style: TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w300,
                   color: Colors.black.withOpacity(0.6),
                 ),
@@ -344,25 +355,6 @@ class MessageWidget extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
       ],
-    );
-  }
-}
-
-class UniDirectionalBackground extends StatelessWidget {
-  const UniDirectionalBackground({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const GradientBackground(
-      gradientColor: LinearGradient(
-        colors: [
-          Color(0xFF92B7C0),
-          Color(0xFFA8CEBF),
-          Color(0xFFCCE7BA),
-        ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ),
     );
   }
 }
