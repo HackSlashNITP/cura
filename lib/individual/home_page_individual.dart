@@ -75,37 +75,57 @@ class _HomePageIndividualState extends State<HomePageIndividual> {
                     width: double.infinity,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
                     child: Container(
-                      height: 50.h,
+                      height: 58.h,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30.r),
-                        boxShadow: const [BoxShadow(blurRadius: 5.0, offset: Offset(0, 2), color: Colors.grey)],
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 5.0,
+                            offset: Offset(0, 2),
+                            color: Colors.grey,
+                          ),
+                        ],
                       ),
-                      child: TextField(
-                        
-                        controller: searchController,
-                        keyboardType: TextInputType.text,
-                        maxLines: null,
-                        minLines: null,
-                        expands: true,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h), // Adjust vertical padding
-                          border: InputBorder.none,
-                          hintText: 'Search here...', // Add the hintText here
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.search,
-                              color: Colors.black,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: TextField(
+                          cursorColor: Colors.black,
+                          controller: searchController,
+                          keyboardType: TextInputType.text,
+                          maxLines: null,
+                          minLines: null,
+                          expands: true,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 20.w,
+                                vertical: 15.h), // Adjust vertical padding
+                            border: InputBorder.none,
+                            hintText: 'Search here...', // Add the hintText here
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                searchController.clear();
+                              },
+                              icon: const Icon(
+                                Icons.clear_rounded,
+                                color: Colors.black,
+                              ),
+                            ),
+                            prefixIcon: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.search,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
@@ -129,7 +149,6 @@ class _HomePageIndividualState extends State<HomePageIndividual> {
                       }),
                       separatorBuilder: ((context, index) =>
                           SizedBox(height: 23.h)),
-
                     ),
                   ),
                 ],
@@ -216,10 +235,12 @@ class ImagePart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-
         color: const Color(0xFFC7E2E4),
         borderRadius: BorderRadius.circular(25.r),
-        boxShadow: const [BoxShadow(color: Color(0x55000000), offset: Offset(0, 2), blurRadius: 2.0)],
+        boxShadow: const [
+          BoxShadow(
+              color: Color(0x55000000), offset: Offset(0, 2), blurRadius: 2.0)
+        ],
       ),
       child: Center(
         child: Image(
@@ -260,7 +281,10 @@ class TextPart extends StatelessWidget {
         ),
         Text(
           subHeading,
-          style: TextStyle(fontSize: 14.sp, color: const Color.fromRGBO(0, 0, 0, 0.58), fontWeight: FontWeight.w700),
+          style: TextStyle(
+              fontSize: 14.sp,
+              color: const Color.fromRGBO(0, 0, 0, 0.58),
+              fontWeight: FontWeight.w700),
         ),
       ],
     );
