@@ -1,3 +1,4 @@
+![hacktoberfest](https://img.shields.io/badge/hacktoberfest-green?style=flat)
 # CURA
 
 An App we are making for the help purpose of  old age home people and orphanage children .Different kind of help and  facility we will provide through this app.
